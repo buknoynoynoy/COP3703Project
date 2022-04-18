@@ -1,3 +1,4 @@
+package package2;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -16,8 +17,8 @@ public class Example0 {
         String portNumber = "1521";
         String sid = "orcl";
         String url = "jdbc:oracle:thin:@cisvm-oracle.unfcsd.unf.edu:1521:orcl";
-        String username = "yourUserName";
-        String password = "yourPassword";
+        String username = "n01473764";
+        String password = "Spring20223764";
         try {
 			Connection conn = DriverManager.getConnection(url, username, password);
 			
@@ -25,7 +26,7 @@ public class Example0 {
 
 	        if(reachable) {
 	        	
-	        	System.out.println("Sucess");
+	        	System.out.println("Success");
 	        	conn.close();
 	        }
 		} catch (SQLException e) {

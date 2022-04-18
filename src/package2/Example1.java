@@ -1,3 +1,4 @@
+package package2;
 /* Example1.java
  * This sample shows how to list codes, descriptions, prices, and quantities on hand
  * of all products from the PRODUCT table, using statement.
