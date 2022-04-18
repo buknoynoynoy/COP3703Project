@@ -18,10 +18,10 @@ class Example1
   {
 
     //System.out.print("userid: ");
-    String uid = "yourUserName";
+    String uid = "T1";
 
     //System.out.print("password: ");
-    String pword = "yourPassword";
+    String pword = "Spring2022T1";
 
     String url = "jdbc:oracle:thin:@cisvm-oracle.unfcsd.unf.edu:1521:orcl";
 
@@ -35,7 +35,7 @@ class Example1
       DriverManager.getConnection (url, uid, pword);
     System.out.println(conn);
 
-    // Create a Statement
+    // Create a Statement ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     Statement stmt = conn.createStatement ();
 
@@ -61,6 +61,8 @@ class Example1
       ResultSet rset = stmt.executeQuery(q);
 
       System.out.println("\n");
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
       // Iterate through the result
 
