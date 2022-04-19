@@ -23,6 +23,7 @@ public class StudentDatabase {
     
             if (reachable) {
                 System.out.println("Connection Established");
+                conn.close();
             }
         } catch (SQLException e) {
             e.printStackTrace();
