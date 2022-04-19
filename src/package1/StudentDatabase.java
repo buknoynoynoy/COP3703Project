@@ -20,8 +20,10 @@ public class StudentDatabase {
             System.out.println(conn);
     
             boolean reachable = conn.isValid(10); //for 10 seconds
-    
+            
+            //if connected is established, start the program
             if (reachable) {
+                //connection was established
                 System.out.println("Connection Established");
     
                 SQLInputs input = new SQLInputs();
@@ -44,12 +46,15 @@ public class StudentDatabase {
                 String Pcity = "Saint Johns";
                 String Pstate = "Florida";
                 String Pzip = "32259";
+                //student input is the input string for the sql statement
                 String studentInput = input.inputStudent(Fname, Minit, Lname, Ssn, Nnumber, Bdate, Sex, sClass, Degree, Cphone, Ccity, Cstate, Czip, Pphone, Pcity, Pstate, Pzip);
                 
                 System.out.println(studentInput);
-
+                
+                //executes the statement
                 ResultSet rset = stmt.executeQuery(studentInput);
-                conn.close();
+
+                conn.close(); //close connection
             }
         } catch (SQLException e) {
             e.printStackTrace();

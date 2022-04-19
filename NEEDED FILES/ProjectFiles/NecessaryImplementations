@@ -1,12 +1,9 @@
-Create input statement functions for student,
-department, course, and section.
+**sCreate input statement functions for student
+Create input statement functions for department
+Create input statement functions for course
+Create input statement functions for section
 
--Student {
-    
-    String q = "INPUT INTO STUDENT VALUES (
-        'Fname',
-    )
-}
+
 
 Create input statement function for enrolling
 student into a course.
