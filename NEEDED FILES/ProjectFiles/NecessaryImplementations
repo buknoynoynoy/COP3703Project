@@ -1,6 +1,13 @@
 Create input statement functions for student,
 department, course, and section.
 
+-Student {
+    
+    String q = "INPUT INTO STUDENT VALUES (
+        'Fname',
+    )
+}
+
 Create input statement function for enrolling
 student into a course.
 

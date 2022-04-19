@@ -11,11 +11,11 @@ CREATE TABLE STUDENT (
     Cphone  CHAR(10),
     Ccity   VARCHAR(20),
     Cstate  VARCHAR(20),
-    Czip    VARCHAR(5),
-    Pphone  VARCHAR(10),
+    Czip    CHAR(5),
+    Pphone  CHAR(10),
     Pcity   VARCHAR(20),
     Pstate  VARCHAR(20),
-    Pzip    VARCHAR(5),
+    Pzip    CHAR(5),
     
     PRIMARY KEY (Nnumber),
     UNIQUE (Ssn) );
