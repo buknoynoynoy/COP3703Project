@@ -28,10 +28,12 @@ public class SQLInputs extends StudentDatabase {
 
         Scanner scan = new Scanner(System.in);
         boolean isValid = true;
+        boolean NameCorrect = true;
 
         /**
          * prompts for student name information
          */
+
         while (isValid) {
             System.out.print("Enter your student's name: ");
             this.Full_Name = scan.nextLine();
@@ -52,16 +54,16 @@ public class SQLInputs extends StudentDatabase {
                     int cut = this.Full_Name.indexOf(" ");
                     this.Fname = this.Full_Name.substring(0, cut);
                     //System.out.println(this.Fname);
-                    
+                        
                     if (spaceCount == 2) {
                         this.Full_Name = this.Full_Name.substring(cut + 1);
                         cut = this.Full_Name.indexOf(" ");
                         this.Minit = this.Full_Name.substring(0, cut);
                         this.Minit = Character.toString(this.Minit.charAt(0));
                         //System.out.println(this.Minit);
-                        
+                            
                     } //end if statement
-        
+            
                     this.Lname = this.Full_Name.substring(cut + 1);
                     //System.out.println(this.Lname);
 
@@ -72,10 +74,8 @@ public class SQLInputs extends StudentDatabase {
                 } //end if else
 
             } //end main if statement (for name)
-        
-        } //end while
 
-        //System.out.println("Fname is: " + this.Fname);
+        } //end while
     
     } //end getStudentInfo()
 
