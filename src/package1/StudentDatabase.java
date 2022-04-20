@@ -26,7 +26,7 @@ public class StudentDatabase {
                 //connection was established
                 System.out.println("Connection Established");
     
-                SQLInputs input = new SQLInputs();
+                SQLStudentInputs input = new SQLStudentInputs();
                 //Statement stmt = conn.createStatement();
                 
                 //executes the statement
