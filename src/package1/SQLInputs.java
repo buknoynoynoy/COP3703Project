@@ -69,9 +69,9 @@ public class SQLInputs extends StudentDatabase {
                     //if input has too many names run this
                     System.out.println("Invalid Input. Please Enter in this format: FirstName MiddleName LastName");
                     isValid = true;
-                }
+                } //end if else
 
-            }
+            } //end main if statement (for name)
         
         } //end while
 
