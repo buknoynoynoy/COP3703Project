@@ -3,8 +3,6 @@ import java.sql.*;
 import java.io.*;
 import java.util.*;
 
-import javax.swing.event.SwingPropertyChangeSupport;
-
 public class SQLInputs extends StudentDatabase {
 
     private String Full_Name;
@@ -68,6 +66,7 @@ public class SQLInputs extends StudentDatabase {
                     //System.out.println(this.Lname);
 
                 } else {
+                    //if input has too many names run this
                     System.out.println("Invalid Input. Please Enter in this format: FirstName MiddleName LastName");
                     isValid = true;
                 }
@@ -81,8 +80,9 @@ public class SQLInputs extends StudentDatabase {
     } //end getStudentInfo()
 
     /**
+     * Creates a string for the sql statement from the user input. Dependent on getStudentInfo()
      * 
-     * @return
+     * @return      string with the values and sql statement stuff.
      */
     public String inputStudent() {
 
@@ -93,12 +93,13 @@ public class SQLInputs extends StudentDatabase {
         Cphone + "', '" + Ccity + "', '" + Cstate + "', '" + Czip + "', '" +
         Pphone + "', '" + Pcity + "', '" + Pstate + "', '" + Pzip + "')";
 
-         return q;
+        return q;
     } //end inputStudent()
 
     /**
+     * Checks to see if a string is numeric or not
      * 
-     * @param s     string input
+     * @param s     string input for checking
      * @return      returns boolean true or false depending on if input is numeric
      */
     public boolean isNumeric (String s) {
