@@ -33,9 +33,13 @@ public class SQLStudentInputs extends StudentDatabase {
 
     public void getStudentInfo() {
 
-        int ssnLength = 0;
+        String sameAddress;
+        
+        //int ssnLength = 0;
+
         //Enter student's Name
         getStudentName();
+        isValid = true;
 
         //Enter student's SSN
         System.out.println("Please enter the student's SSN: ");
@@ -53,7 +57,69 @@ public class SQLStudentInputs extends StudentDatabase {
         System.out.println("\nEnter the student's Birthday (YYYY-MM-DD): ");
         this.Bdate = scan.nextLine();
 
-    
+        //Enter the student's Gender
+        while (isValid) {
+            System.out.print("\nPlease enter your gender (Male or Female): ");
+            this.Sex = scan.nextLine();
+            isValid = (isNumeric(this.Sex));
+
+            if (isValid) {
+                System.out.println("Invalid Input. Please Try Again.");
+
+            } else {
+                this.Sex = Character.toString(this.Sex.charAt(0));
+                //isValid = false;
+            } //end if
+        } //end while
+        isValid = true;
+
+        //enter their class
+        System.out.print("\nEnter your student's class (Freshman, Sophomore, Junior, or Senior): ");
+        this.sClass = scan.nextLine();
+
+        //Enter student's degree
+        System.out.print("\nEnter your student's degree (BA, BS, PHD): ");
+        this.Degree = scan.nextLine();
+
+        //Enter student's current phone address
+        System.out.print("\nPlease enter the student's current phone number: ");
+        this.Cphone = scan.nextLine();
+
+        //Enter student's current city
+        System.out.print("\nEnter the current city: ");
+        this.Ccity = scan.nextLine();
+
+        //Enter student's current state
+        System.out.print("\nEnter the current state: ");
+        this.Cstate = scan.nextLine();
+
+        //Enter the student's current zip
+        System.out.print("\nEnter the student's current zip: ");
+        this.Czip = scan.nextLine();
+
+        System.out.print("\nAre these the same as your permanent address? 1 for yes -1 for no: ");
+        sameAddress = scan.nextLine();
+
+        if (sameAddress.equals("1")) {
+            this.Pphone = this.Cphone;
+            this.Pcity = this.Ccity;
+            this.Pstate = this.Cstate;
+            this.Pzip = this.Czip;
+
+        } else if (sameAddress.equals("-1")) {
+            System.out.print("\nEnter your permanent phone: ");
+            this.Pphone = scan.nextLine();
+
+            System.out.print("\nEnter your permanent city: ");
+            this.Pcity = scan.nextLine();
+
+            System.out.print("\nEnter your permanent state: ");
+            this.Pstate = scan.nextLine();
+
+            System.out.print("\nEnter your permanent zip: ");
+            this.Pzip = scan.nextLine();
+        }
+
     } //end getStudentInfo()
 
     /**
@@ -98,16 +164,17 @@ public class SQLStudentInputs extends StudentDatabase {
                     this.Lname = this.Full_Name.substring(cut + 1);
                     //System.out.println(this.Lname);
 
-                } else {
-                    //if input has too many names run this
-                    System.out.println("Invalid Input. Please Enter in this format: FirstName MiddleName LastName");
-                    isValid = true;
+                    } else {
+                        //if input has too many names run this
+                        System.out.println("Invalid Input. Please Enter in this format: FirstName MiddleName LastName");
+                        isValid = true;
                 } //end if else
 
             } //end main if statement (for name)
 
         } //end while
-    }
+        isValid = true;
+    } //end getStudentName();
 
     /**
      * Creates a string for the sql statement from the user input. Dependent on getStudentInfo()
