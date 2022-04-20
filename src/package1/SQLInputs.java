@@ -3,7 +3,14 @@ import java.sql.*;
 import java.io.*;
 import java.util.*;
 
+import javax.script.AbstractScriptEngine;
+import javax.sound.midi.SysexMessage;
+
 public class SQLInputs extends StudentDatabase {
+
+    Scanner scan = new Scanner(System.in);
+
+    private static boolean isValid = true;
 
     private String Full_Name;
     private String Fname;
@@ -26,9 +33,33 @@ public class SQLInputs extends StudentDatabase {
 
     public void getStudentInfo() {
 
-        Scanner scan = new Scanner(System.in);
-        boolean isValid = true;
-        boolean NameCorrect = true;
+        int ssnLength = 0;
+        //Enter student's Name
+        getStudentName();
+
+        //Enter student's SSN
+        System.out.println("Please enter the student's SSN: ");
+        this.Ssn = scan.nextLine();
+
+
+        //Enter Student's Nnumber
+        System.out.print("\nPlease enter the students N-Number in this format (N--------): ");
+        this.Nnumber = scan.nextLine();
+        if (Character.toString(this.Nnumber.charAt(0)).equals("n")) {
+            this.Nnumber = this.Nnumber.replace("n", "N");
+        }
+
+        //Enter student's Bdate
+        System.out.println("\nEnter the student's Birthday (YYYY-MM-DD): ");
+        this.Bdate = scan.nextLine();
+
+    
+    } //end getStudentInfo()
+
+    /**
+     * Acquires the name of the student.
+     */
+    public void getStudentName() {
 
         /**
          * prompts for student name information
@@ -76,8 +107,7 @@ public class SQLInputs extends StudentDatabase {
             } //end main if statement (for name)
 
         } //end while
-    
-    } //end getStudentInfo()
+    }
 
     /**
      * Creates a string for the sql statement from the user input. Dependent on getStudentInfo()
