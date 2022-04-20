@@ -2,11 +2,15 @@ package package1;
 import java.sql.*;
 import java.io.*;  
 import java.sql.PreparedStatement;
+import java.util.*;
+
 
 public class StudentDatabase {
     public static void main(String[] args) throws Exception {
+        Scanner scan = new Scanner(System.in);
         //Stuff for initializing the Connection
-
+        boolean doContinue = true;
+        int proceed = -1;
         String userID = "T1";
         String password = "Spring2022T1";
         String url = "jdbc:oracle:thin:@cisvm-oracle.unfcsd.unf.edu:1521:orcl";
@@ -32,10 +36,32 @@ public class StudentDatabase {
                 //executes the statement
                 //ResultSet rset = stmt.executeQuery(studentInput);
 
-                input.getStudentInfo(); //test getStudentInfo
-                String studentInput = input.inputStudent();
+                do {
+                    System.out.println("Welcome to the Database\nWould you like to proceed? 1 for yes -1 for no");
+                    proceed = scan.nextInt();
 
-                System.out.println(studentInput);
+                    if (proceed == 1) {
+                        doContinue = true;
+                    } else if (proceed == -1) {
+                        doContinue = false;
+                        break;
+                    }
+                    
+                    input.getStudentInfo(); //test getStudentInfo
+                    String studentInput = input.inputStudent();
+                    
+                    System.out.println(studentInput);
+
+                    System.out.println("Would you like to continue? 1 yes, -1 no:");
+                    proceed = scan.nextInt();
+                    if (proceed == 1) {
+                        doContinue = true;
+                    } else if (proceed == -1) {
+                        doContinue = false;
+                        break;
+                    }
+
+                } while (doContinue);
 
                 conn.close(); //close connection
             }
