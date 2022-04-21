@@ -74,8 +74,17 @@ public class SQLStudentInputs extends StudentDatabase {
         isValid = true;
 
         //enter their class
-        System.out.print("\nEnter your student's class (Freshman, Sophomore, Junior, or Senior): ");
-        this.sClass = scan.nextLine();
+        while (isValid) {
+            System.out.print("\nEnter your student's class (Freshman, Sophomore, Junior, or Senior): ");
+            this.sClass = scan.nextLine();
+            isValid = (isNumeric(this.sClass));
+
+            if (isValid || this.sClass.length() > 10) {
+                System.out.println("Invalid Input. Please try again.");
+            }
+        }
+        isValid = true;
+
 
         //Enter student's degree
         System.out.print("\nEnter your student's degree (BA, BS, PHD): ");
