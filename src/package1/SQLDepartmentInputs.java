@@ -108,6 +108,11 @@ public class SQLDepartmentInputs extends Object {
 
     } //end getDatabaseInfo()
 
+    /**
+     *  SQL statement for inputing a department.
+     * 
+     * @return  returns the string input statement with the values inputed by the user.
+     */
     public String inputDepartment() {
 
         //creates insert statement for student
@@ -117,6 +122,12 @@ public class SQLDepartmentInputs extends Object {
         return q;
     } //end inputStudent()
 
+    /**
+     * checks if the string parameter is numeric.
+     * 
+     * @param s user string
+     * @return  returns true or false depending on if numeric
+     */
     public boolean isNumeric (String s) {
         try {
             Double.parseDouble(s);

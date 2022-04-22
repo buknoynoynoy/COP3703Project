@@ -31,6 +31,7 @@ public class StudentDatabase {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////   
                 SQLStudentInputs studentInput = new SQLStudentInputs();
                 SQLDepartmentInputs departmentInput = new SQLDepartmentInputs();
+                SQLCourseInputs courseInput = new SQLCourseInputs();
 
                 //init stmt for sql statements
                 Statement stmt = conn.createStatement();
@@ -46,6 +47,9 @@ public class StudentDatabase {
 
                 //departmentSQL statement
                 String departmentSQL;
+
+                //courseSQL statement
+                String courseSQL;
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 System.out.println("Welcome to the Database\nWould you like to proceed? 1 for yes -1 for no");
                 do {
@@ -60,7 +64,7 @@ public class StudentDatabase {
                     }
 
                     //starting the program (intro)
-                    System.out.println("What would you like to input?\n1 for student.\n2 for department");
+                    System.out.println("What would you like to input?\n1 for student.\n2 for department\n3 for course");
                     userChoice = scan.nextInt();
 
                     //to choose what the user wants to do (meat)
@@ -80,10 +84,11 @@ public class StudentDatabase {
                                 System.out.println("Input failed.");
                             }
 
-                            break;
+                            break; //end case 1
+
                         //input department case
                         case 2:
-                            System.out.println("Entering Department");
+                            System.out.println("Entering Department...");
                             departmentInput.getDepartmentInfo();
                             departmentSQL = departmentInput.inputDepartment();
                             //System.out.println(departmentSQL);
@@ -95,8 +100,17 @@ public class StudentDatabase {
                                 System.out.println("Input failed.");
                             }
 
+                            break; //case 2
+
+                        case 3:
+                            System.out.println("Entering Course...");
+                            courseInput.getCourseInfo();
+                            courseSQL = courseInput.inputCourse();
+                            System.out.println(courseSQL);
+
                             break;
-                    }
+
+                    } //end switch
 
                     System.out.println("Would you like to continue? 1 yes, -1 no:");
                     proceed = scan.nextInt();
