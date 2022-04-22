@@ -8,9 +8,8 @@ import java.util.*;
 public class StudentDatabase {
     public static void main(String[] args) throws Exception {
         Scanner scan = new Scanner(System.in);
+
         //Stuff for initializing the Connection
-        boolean doContinue = true;
-        int proceed = -1;
         String userID = "T1";
         String password = "Spring2022T1";
         String url = "jdbc:oracle:thin:@cisvm-oracle.unfcsd.unf.edu:1521:orcl";
@@ -30,12 +29,19 @@ public class StudentDatabase {
                 //connection was established
                 System.out.println("Connection Established");
     
-                SQLStudentInputs input = new SQLStudentInputs();
+                SQLStudentInputs studentInput = new SQLStudentInputs();
                 //Statement stmt = conn.createStatement();
                 
                 //executes the statement
                 //ResultSet rset = stmt.executeQuery(studentInput);
+                boolean doContinue = true;
+                int proceed = -1;
 
+                int userChoice = -1;
+
+                //studentSQL statement
+                String studentSQL;
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 do {
                     System.out.println("Welcome to the Database\nWould you like to proceed? 1 for yes -1 for no");
                     proceed = scan.nextInt();
@@ -46,11 +52,23 @@ public class StudentDatabase {
                         doContinue = false;
                         break;
                     }
-                    
-                    input.getStudentInfo(); //test getStudentInfo
-                    String studentInput = input.inputStudent();
-                    
-                    System.out.println(studentInput);
+
+                    //starting the program
+                    System.out.println("What would you like to input?\n1 for student.");
+                    userChoice = scan.nextInt();
+
+                    //to choose what the user wants to do
+                    switch (userChoice) {
+                        
+                        //input student case.
+                        case 1:
+                            System.out.println("Entering Student...");
+                            studentInput.getStudentInfo();
+                            studentSQL = studentInput.inputStudent();
+                            System.out.println(studentSQL);
+
+                            break;
+                    }
 
                     System.out.println("Would you like to continue? 1 yes, -1 no:");
                     proceed = scan.nextInt();
@@ -62,6 +80,7 @@ public class StudentDatabase {
                     }
 
                 } while (doContinue);
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
                 conn.close(); //close connection
             }

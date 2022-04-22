@@ -42,16 +42,42 @@ public class SQLStudentInputs extends StudentDatabase {
         isValid = true;
 
         //Enter student's SSN
-        System.out.println("Please enter the student's SSN: ");
-        this.Ssn = scan.nextLine();
+        while (isValid) {
 
+            System.out.println("Please enter the student's SSN: ");
+            this.Ssn = scan.nextLine();
+            isValid = (isNumeric(this.Ssn));
+
+            if (!isValid) {
+                System.out.println("Invalid Input. Please try again.");
+                isValid = true;
+            } else if (this.Ssn.length() > 9 || this.Ssn.length() < 9) {
+                System.out.println("Invalid Input. Please try again.");
+                isValid = true;
+            } else {
+                break;
+            }
+        }
+        isValid = true;
 
         //Enter Student's Nnumber
-        System.out.print("\nPlease enter the students N-Number in this format (N--------): ");
-        this.Nnumber = scan.nextLine();
-        if (Character.toString(this.Nnumber.charAt(0)).equals("n")) {
-            this.Nnumber = this.Nnumber.replace("n", "N");
+        while (isValid) {
+            System.out.print("\nPlease enter the students N-Number in this format (N--------): ");
+            this.Nnumber = scan.nextLine();
+            isValid = (isNumeric(this.Nnumber));
+
+            if (isValid) {
+                System.out.println("Invalid Input. Please try again.");
+            } else if (this.Nnumber.length() > 9 || this.Nnumber.length() < 9) {
+                System.out.println("Invalid Input. Please try again.");
+                isValid = true;
+            } else {
+                if (Character.toString(this.Nnumber.charAt(0)).equals("n")) {
+                    this.Nnumber = this.Nnumber.replace("n", "N");
+                }
+            }
         }
+        isValid = true;
 
         //Enter student's Bdate
         System.out.println("\nEnter the student's Birthday (YYYY-MM-DD): ");
@@ -79,32 +105,100 @@ public class SQLStudentInputs extends StudentDatabase {
             this.sClass = scan.nextLine();
             isValid = (isNumeric(this.sClass));
 
-            if (isValid || this.sClass.length() > 10) {
+            if (isValid) {
                 System.out.println("Invalid Input. Please try again.");
+            } else if (this.sClass.length() > 10) {
+                System.out.println("Invalid Input. Please try again.");
+                isValid = true;
             }
         }
         isValid = true;
 
-
         //Enter student's degree
-        System.out.print("\nEnter your student's degree (BA, BS, PHD): ");
-        this.Degree = scan.nextLine();
+        while (isValid) {
+
+            System.out.print("\nEnter your student's degree (BA, BS, PHD): ");
+            this.Degree = scan.nextLine();
+            isValid = (isNumeric(this.Degree));
+
+            if (isValid) {
+                System.out.println("Invalid Input. Please try again.");
+            } else if (this.Degree.length() > 4 || this.Degree.length() < 2) {
+                System.out.println("Invalid Input. Please try again.");
+                isValid = true;
+            }
+        }
+        isValid = true;
 
         //Enter student's current phone address
-        System.out.print("\nPlease enter the student's current phone number: ");
-        this.Cphone = scan.nextLine();
+        while (isValid) {
+
+            System.out.print("\nPlease enter the student's current phone number: ");
+            this.Cphone = scan.nextLine();
+            isValid = (isNumeric(this.Cphone));
+
+            if (!isValid) {
+                System.out.println("Invalid Input. Please try again.");
+                isValid = true;
+            } else if (this.Cphone.length() > 10 || this.Cphone.length() < 10) {
+                System.out.println("Invalid Input. Please try again.");
+                isValid = true;
+            } else {
+                break;
+            }
+        }
+        isValid = true;
 
         //Enter student's current city
-        System.out.print("\nEnter the current city: ");
-        this.Ccity = scan.nextLine();
+        while (isValid) {
+
+            System.out.print("\nEnter the current city: ");
+            this.Ccity = scan.nextLine();
+            isValid = (isNumeric(this.Ccity));
+
+            if (isValid) {
+                System.out.println("Invalid Input. Please try again.");
+            } else if (this.Ccity.length() > 20) {
+                System.out.println("Invalid Input. Please try again.");
+                isValid = true;
+            }
+        }
+        isValid = true;
 
         //Enter student's current state
-        System.out.print("\nEnter the current state: ");
-        this.Cstate = scan.nextLine();
+        while (isValid) {
+
+            System.out.print("\nEnter the current state: ");
+            this.Cstate = scan.nextLine();
+            isValid = (isNumeric(this.Cstate));
+
+            if (isValid) {
+                System.out.println("Invalid Input. Please try again.");
+            } else if (this.Cstate.length() > 20) {
+                System.out.println("Invalid Input. Please try again.");
+                isValid = true;
+            }
+        }
+        isValid = true;
 
         //Enter the student's current zip
-        System.out.print("\nEnter the student's current zip: ");
-        this.Czip = scan.nextLine();
+        while (isValid) {
+
+            System.out.print("\nEnter the student's current zip: ");
+            this.Czip = scan.nextLine();
+            isValid = (isNumeric(this.Czip));
+
+            if (!isValid) {
+                System.out.println("Invalid Input. Please try again.");
+                isValid = true;
+            } else if (this.Czip.length() > 5 || this.Cphone.length() < 5) {
+                System.out.println("Invalid Input. Please try again.");
+                isValid = true;
+            } else {
+                break;
+            }
+        }
+        isValid = true;
 
         System.out.print("\nAre these the same as your permanent address? 1 for yes -1 for no: ");
         sameAddress = scan.nextLine();
@@ -116,18 +210,76 @@ public class SQLStudentInputs extends StudentDatabase {
             this.Pzip = this.Czip;
 
         } else if (sameAddress.equals("-1")) {
-            System.out.print("\nEnter your permanent phone: ");
-            this.Pphone = scan.nextLine();
+            //Enter student's permanent phone address
+            while (isValid) {
 
-            System.out.print("\nEnter your permanent city: ");
-            this.Pcity = scan.nextLine();
+                System.out.print("\nPlease enter the student's permanent phone number: ");
+                this.Pphone = scan.nextLine();
+                isValid = (isNumeric(this.Pphone));
 
-            System.out.print("\nEnter your permanent state: ");
-            this.Pstate = scan.nextLine();
+                if (!isValid) {
+                    System.out.println("Invalid Input. Please try again.");
+                    isValid = true;
+                } else if (this.Pphone.length() > 10 || this.Pphone.length() < 10) {
+                    System.out.println("Invalid Input. Please try again.");
+                    isValid = true;
+                } else {
+                    break;
+                }
+            }
+            isValid = true;
 
-            System.out.print("\nEnter your permanent zip: ");
-            this.Pzip = scan.nextLine();
-        }
+            //Enter student's permanent city
+            while (isValid) {
+
+                System.out.print("\nPlease enter the permanent city: ");
+                this.Pcity = scan.nextLine();
+                isValid = (isNumeric(this.Pcity));
+
+                if (isValid) {
+                    System.out.println("Invalid Input. Please try again.");
+                } else if (this.Pcity.length() > 20) {
+                    System.out.println("Invalid Input. Please try again.");
+                    isValid = true;
+                }
+            }
+            isValid = true;
+
+            //Enter student's current state
+            while (isValid) {
+
+                System.out.print("\nEnter the current state: ");
+                this.Pstate = scan.nextLine();
+                isValid = (isNumeric(this.Pstate));
+
+                if (isValid) {
+                    System.out.println("Invalid Input. Please try again.");
+                } else if (this.Pstate.length() > 20) {
+                    System.out.println("Invalid Input. Please try again.");
+                    isValid = true;
+                }
+            }
+            isValid = true;
+
+            //Enter the student's current zip
+            while (isValid) {
+
+                System.out.print("\nEnter the student's current zip: ");
+                this.Pzip = scan.nextLine();
+                isValid = (isNumeric(this.Pzip));
+
+                if (!isValid) {
+                    System.out.println("Invalid Input. Please try again.");
+                    isValid = true;
+                } else if (this.Pzip.length() > 5 || this.Pphone.length() < 5) {
+                    System.out.println("Invalid Input. Please try again.");
+                    isValid = true;
+                } else {
+                    break;
+                }
+            }
+            isValid = true;
+        } //end else if
 
     } //end getStudentInfo()
 
