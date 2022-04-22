@@ -108,7 +108,7 @@ public class SQLDepartmentInputs extends Object {
 
     } //end getDatabaseInfo()
 
-    public String inputDatabase() {
+    public String inputDepartment() {
 
         //creates insert statement for student
         String q = "INSERT INTO DEPARTMENT VALUES('" + Dcode + "', '" + DName + "', '" +
