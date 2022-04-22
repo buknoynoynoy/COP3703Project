@@ -72,8 +72,13 @@ public class StudentDatabase {
                             studentInput.getStudentInfo();
                             studentSQL = studentInput.inputStudent();
                             //System.out.println(studentSQL);
-
-                            ResultSet studentInputs = stmt.executeQuery(studentSQL);
+                            
+                            //attempt student input
+                            try {
+                                ResultSet studentInputs = stmt.executeQuery(studentSQL);
+                            } catch (Exception ex) {
+                                System.out.println("Input failed.");
+                            }
 
                             break;
                         //input department case
@@ -83,7 +88,12 @@ public class StudentDatabase {
                             departmentSQL = departmentInput.inputDepartment();
                             //System.out.println(departmentSQL);
 
-                            ResultSet departmentInputs = stmt.executeQuery(departmentSQL);
+                            //attempt department input
+                            try {
+                                ResultSet departmentInputs = stmt.executeQuery(departmentSQL);
+                            } catch (Exception ex) {
+                                System.out.println("Input failed.");
+                            }
 
                             break;
                     }
