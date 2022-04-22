@@ -36,7 +36,6 @@ public class StudentDatabase {
                 Statement stmt = conn.createStatement();
                 
                 //executes the statement
-                //ResultSet rset = stmt.executeQuery(studentInput);
                 boolean doContinue = true;
                 int proceed = -1;
 
@@ -48,10 +47,11 @@ public class StudentDatabase {
                 //departmentSQL statement
                 String departmentSQL;
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                System.out.println("Welcome to the Database\nWould you like to proceed? 1 for yes -1 for no");
                 do {
-                    System.out.println("Welcome to the Database\nWould you like to proceed? 1 for yes -1 for no");
+                    System.out.println("Continue?");
                     proceed = scan.nextInt();
-
+                    //checks if user would like to proceed
                     if (proceed == 1) {
                         doContinue = true;
                     } else if (proceed == -1) {
@@ -59,11 +59,11 @@ public class StudentDatabase {
                         break;
                     }
 
-                    //starting the program
+                    //starting the program (intro)
                     System.out.println("What would you like to input?\n1 for student.\n2 for department");
                     userChoice = scan.nextInt();
 
-                    //to choose what the user wants to do
+                    //to choose what the user wants to do (meat)
                     switch (userChoice) {
 
                         //input student case.
@@ -71,20 +71,27 @@ public class StudentDatabase {
                             System.out.println("Entering Student...");
                             studentInput.getStudentInfo();
                             studentSQL = studentInput.inputStudent();
-                            System.out.println(studentSQL);
+                            //System.out.println(studentSQL);
+
+                            ResultSet studentInputs = stmt.executeQuery(studentSQL);
 
                             break;
+                        //input department case
                         case 2:
-                            System.out.println("Entering Database");
+                            System.out.println("Entering Department");
                             departmentInput.getDepartmentInfo();
-                            departmentSQL = departmentInput.inputDatabase();
-                            System.out.println(departmentSQL);
+                            departmentSQL = departmentInput.inputDepartment();
+                            //System.out.println(departmentSQL);
+
+                            ResultSet departmentInputs = stmt.executeQuery(departmentSQL);
 
                             break;
                     }
 
                     System.out.println("Would you like to continue? 1 yes, -1 no:");
                     proceed = scan.nextInt();
+
+                    //checks if user would like to proceed.
                     if (proceed == 1) {
                         doContinue = true;
                     } else if (proceed == -1) {
@@ -98,7 +105,8 @@ public class StudentDatabase {
                 conn.close(); //close connection
             }
         } catch (SQLException e) {
-            System.out.println("Couldn't Establish Connection");
+            //System.out.println("Couldn't Establish Connection");
+            e.printStackTrace();
         }
 
         //Connection conn = DriverManager.getConnection(url, userID, password);
