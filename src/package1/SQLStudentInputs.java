@@ -1,16 +1,12 @@
 package package1;
-import java.sql.*;
-import java.io.*;
+
 import java.util.*;
 
-import javax.script.AbstractScriptEngine;
-import javax.sound.midi.SysexMessage;
-
-public class SQLStudentInputs extends StudentDatabase {
+public class SQLStudentInputs extends Object {
 
     Scanner scan = new Scanner(System.in);
 
-    private static boolean isValid = true;
+    private boolean isValid = true;
 
     private String Full_Name;
     private String Fname;

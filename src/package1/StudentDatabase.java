@@ -28,9 +28,12 @@ public class StudentDatabase {
             if (reachable) {
                 //connection was established
                 System.out.println("Connection Established");
-    
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////   
                 SQLStudentInputs studentInput = new SQLStudentInputs();
-                //Statement stmt = conn.createStatement();
+                SQLDepartmentInputs departmentInput = new SQLDepartmentInputs();
+
+                //init stmt for sql statements
+                Statement stmt = conn.createStatement();
                 
                 //executes the statement
                 //ResultSet rset = stmt.executeQuery(studentInput);
@@ -41,6 +44,9 @@ public class StudentDatabase {
 
                 //studentSQL statement
                 String studentSQL;
+
+                //departmentSQL statement
+                String departmentSQL;
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 do {
                     System.out.println("Welcome to the Database\nWould you like to proceed? 1 for yes -1 for no");
@@ -54,18 +60,25 @@ public class StudentDatabase {
                     }
 
                     //starting the program
-                    System.out.println("What would you like to input?\n1 for student.");
+                    System.out.println("What would you like to input?\n1 for student.\n2 for department");
                     userChoice = scan.nextInt();
 
                     //to choose what the user wants to do
                     switch (userChoice) {
-                        
+
                         //input student case.
                         case 1:
                             System.out.println("Entering Student...");
                             studentInput.getStudentInfo();
                             studentSQL = studentInput.inputStudent();
                             System.out.println(studentSQL);
+
+                            break;
+                        case 2:
+                            System.out.println("Entering Database");
+                            departmentInput.getDepartmentInfo();
+                            departmentSQL = departmentInput.inputDatabase();
+                            System.out.println(departmentSQL);
 
                             break;
                     }
