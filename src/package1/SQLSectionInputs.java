@@ -10,7 +10,7 @@ public class SQLSectionInputs {
     private boolean isValid = true;
 
     public void getSectionInfo() {
-        
+
         //Enter course number
         while (isValid) {
             System.out.print("Please enter the course number (XXXXXXX): ");
@@ -30,8 +30,8 @@ public class SQLSectionInputs {
         isValid = true;
 
         //enter the section number for this course (1-10)
-        System.out.print("Please enter the section number for this section: ");
-        this.Snumber = inputValidNum(this.Snumber, 2)
+        System.out.print("Please enter the section number for this section (1-10): ");
+        this.Snumber = inputValidNum(this.Snumber, 2);
 
         //enter the semester this section is offered
         System.out.print("Please enter the semester this section will be offered: ");
@@ -39,10 +39,10 @@ public class SQLSectionInputs {
 
         //enter the year this will be offered
         System.out.print("Please enter the year this section will be offered: ");
-        this.Syear = inputValidString(this.Syear, 4);
+        this.Syear = inputValidNum(this.Syear, 4);
 
         //enter the instructor
-        System.out.println("Who will be teaching this section?: ");
+        System.out.print("Who will be teaching this section?: ");
         this.Sinstructor = inputValidString(this.Sinstructor, 20);
 
     } //end getSectionInfo
