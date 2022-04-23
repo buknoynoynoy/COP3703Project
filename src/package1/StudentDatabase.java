@@ -67,7 +67,7 @@ public class StudentDatabase {
                     }
 
                     //starting the program (intro)
-                    System.out.println("What would you like to input?\n1 for student.\n2 for department.\n3 for course.\n4 for section.");
+                    System.out.println("What would you like to do?\n1 to input student.\n2 to input a department.\n3 to input a course.\n4 to input a section.\n5 to display all courses for a given department.");
                     userChoice = scan.nextInt();
 
                     //to choose what the user wants to do (meat)
@@ -268,6 +268,74 @@ public class StudentDatabase {
                             }
 
                             break; //case 4
+
+                        case 5:
+                            boolean isValid = true;
+                            String courseFromDep;
+                            //printing departments
+                            System.out.println("Displaying current Departments...");
+                            try {
+                                String deps = "SELECT Dname, Dcode, College FROM DEPARTMENT";
+                                ResultSet printDeps = stmt.executeQuery(deps);
+
+                                //iterating through result
+                                while (printDeps.next()) {
+
+                                String Dname = printDeps.getString("Dname");
+                                String Dcode = printDeps.getString("Dcode");
+                                String College = printDeps.getString("College");
+                                System.out.println("#####################################\nDepartment Name: " + 
+                                                    Dname + "\nDepartment Code: " + Dcode + "\nDepartment College: " + 
+                                                    College + "\n#####################################\n");
+
+                                } //end while printDeps
+
+                            } catch (Exception e) {
+                                System.out.println("Failed.");
+                                break;
+                            } //end printing departments.
+
+                            //get the department code
+                            while (isValid) {
+
+                                System.out.print("\nChoose the department to display sections, type the department code (XXXX): ");
+                                courseFromDep = scan.nextLine();
+                                isValid = (isNumeric(courseFromDep));
+
+                                if (!isValid) {
+                                    System.out.println("Invalid Input. Numbers only. Please try again.");
+                                    isValid = true;
+                                } else if (courseFromDep.length() > 4 || courseFromDep.length() < 4) {
+                                    System.out.println("Invalid Input. Please try again.");
+                                    isValid = true;
+                                } else {
+                                    //print the courses
+                                    System.out.println("Printing courses...");
+                                    try {
+                                        String courses = "SELECT Dname, CName, Cnumber, Cdesc FROM DEPARTMENT, COURSE WHERE (Dcode = Depart_Code AND Depart_Code='" + courseFromDep + "')";
+                                        ResultSet printCourses = stmt.executeQuery(courses);
+
+                                        //iterate through results
+                                        while (printCourses.next()) {
+                                            String Dname = printCourses.getString("Dname");
+                                            String CName = printCourses.getString("CName");
+                                            String Cnumber = printCourses.getString("Cnumber");
+                                            String Cdesc = printCourses.getString("Cdesc");
+                                            System.out.println("\nCOURSE\n#####################################\nDepartment: " + Dname + "\nCourse Name: " + 
+                                            CName + "\nCourse number: " + Cnumber + "\nCourse description: " + 
+                                            Cdesc + "\n#####################################\n");
+                                        } //end while printCourses
+
+                                    } catch (Exception e) {
+                                        System.out.println("Failed.");
+                                    } //end print courses
+
+                                    break;
+                                }
+                            }
+                            isValid = true;
+
+                            break; //case 5
                             
 
                     } //end switch
@@ -307,12 +375,30 @@ public class StudentDatabase {
             return buffer.toString().trim();
             }
             catch (IOException e){return "";}
-        } //end getString()
 
-        public static int getInt() 
+    } //end getString()
 
-        {
-            String s= getString();
-            return Integer.parseInt(s);
-        } //end getInt()
+    public static int getInt() {
+        String s= getString();
+        return Integer.parseInt(s);
+
+    } //end getInt()
+
+        /**
+     * checks if the string parameter is numeric.
+     * 
+     * @param s user string
+     * @return  returns true or false depending on if numeric
+     */
+    public static boolean isNumeric (String s) {
+        try {
+            Double.parseDouble(s);
+            return true;
+
+        } catch (NumberFormatException ex) {
+            return false;
+
+        } //end try-catch
+
+    } //end isNumeric()
 }
