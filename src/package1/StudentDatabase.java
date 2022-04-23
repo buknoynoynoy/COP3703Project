@@ -101,6 +101,22 @@ public class StudentDatabase {
                                         System.out.println("No departments.");
                                     }
                                 }
+
+                                //print departments
+                                String deps = "SELECT Dname, Dcode, College FROM DEPARTMENT";
+                                ResultSet printDeps = stmt.executeQuery(deps);
+
+                                //iterating through result
+                                while (printDeps.next()) {
+
+                                String Dname = printDeps.getString("Dname");
+                                String Dcode = printDeps.getString("Dcode");
+                                String College = printDeps.getString("College");
+                                System.out.println("#####################################\nDepartment Name: " + 
+                                                    Dname + "\nDepartment Code: " + Dcode + "\nDepartment College: " + 
+                                                    College + "\n#####################################\n");
+
+                                } //end while printDeps
     
                             } catch (Exception e){
                                 System.out.println("Failed.");
@@ -145,10 +161,31 @@ public class StudentDatabase {
                                 break;
                             } //end printing departments.
 
+                            //print courses...
+                            System.out.println("Printing courses...");
+                            try {
+                                String courses = "SELECT Dname, CName, Cnumber, Cdesc FROM DEPARTMENT, COURSE WHERE Dcode = Depart_Code";
+                                ResultSet printCourses = stmt.executeQuery(courses);
+
+                                //print courses
+                                while (printCourses.next()) {
+                                    String Dname = printCourses.getString("Dname");
+                                    String CName = printCourses.getString("CName");
+                                    String Cnumber = printCourses.getString("Cnumber");
+                                    String Cdesc = printCourses.getString("Cdesc");
+                                    System.out.println("\nCOURSE\n#####################################\nDepartment: " + Dname + "\nCourse Name: " + 
+                                    CName + "\nCourse number: " + Cnumber + "\nCourse description: " + 
+                                    Cdesc + "\n#####################################\n");
+                                } //end while printCourses
+
+                            } catch (Exception e) {
+                                System.out.println("Failed.");
+                            } //end print courses
+
                             System.out.println("Entering Course...");
                             courseInput.getCourseInfo();
                             courseSQL = courseInput.inputCourse();
-                            System.out.println(courseSQL);
+                            //System.out.println(courseSQL);
 
                             try {
                                 ResultSet courseInputs = stmt.executeQuery(courseSQL);

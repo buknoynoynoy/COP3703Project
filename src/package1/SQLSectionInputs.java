@@ -2,50 +2,25 @@ package package1;
 
 import java.util.*;
 
-import javax.print.attribute.SupportedValuesAttribute;
-
-public class SQLCourseInputs {
-
+public class SQLSectionInputs {
     Scanner scan = new Scanner(System.in);
 
-    private String Cnumber, CName, Cdesc, Chours, Clevel, Depart_Code;
+    private String Snumber, Sinstructor, Semester, Syear, C_no;
 
     private boolean isValid = true;
 
-    public void getCourseInfo() {
-
-        //enter department for course
-        while (isValid) {
-            System.out.print("What department will this course be in (department code XXXX): ");
-            this.Depart_Code = scan.nextLine();
-            isValid = (isNumeric(this.Depart_Code));
-
-            if (!isValid) {
-                System.out.println("Invalid Input. Numbers only. Please try again.");
-                isValid = true;
-            } else if (this.Depart_Code.length() > 4 || this.Depart_Code.length() < 4) {
-                System.out.println("Invalid Input. Minimum 4 numbers. Please try again.");
-                isValid = true;
-            } else {
-                break;
-            }
-        }
-        isValid = true;
-
-        //Enter course name
-        System.out.print("Please enter the course name: ");
-        this.CName = inputValidString(this.CName, 20);
-
+    public void getSectionInfo() {
+        
         //Enter course number
         while (isValid) {
             System.out.print("Please enter the course number (XXXXXXX): ");
-            this.Cnumber = inputValidNum(this.Cnumber, 7);
-            isValid = (isNumeric(this.Cnumber));
+            this.C_no = inputValidNum(this.C_no, 7);
+            isValid = (isNumeric(this.C_no));
 
             if (!isValid) {
                 System.out.println("Invalid Input. Numbers only. Please try again.");
                 isValid = true;
-            } else if (this.Cnumber.length() > 7 || this.Cnumber.length() < 7) {
+            } else if (this.C_no.length() > 7 || this.C_no.length() < 7) {
                 System.out.println("Invalid Input. Minimum and maximum of 7 numbers. Please try again.");
                 isValid = true;
             } else {
@@ -54,29 +29,33 @@ public class SQLCourseInputs {
         }
         isValid = true;
 
-        //enter course description
-        System.out.print("Please enter the course description: ");
-        this.Cdesc = inputValidString(this.Cdesc, 100);
+        //enter the section number for this course (1-10)
+        System.out.print("Please enter the section number for this section: ");
+        this.Snumber = inputValidNum(this.Snumber, 2)
 
-        //enter course hours
-        System.out.print("Please enter the number of hours for this course: ");
-        this.Chours = inputValidNum(this.Chours, 1);
+        //enter the semester this section is offered
+        System.out.print("Please enter the semester this section will be offered: ");
+        this.Semester = inputValidString(this.Semester, 6);
 
-        //enter course level
-        System.out.print("Please enter the course level: ");
-        this.Clevel = inputValidString(this.Clevel, 10);
+        //enter the year this will be offered
+        System.out.print("Please enter the year this section will be offered: ");
+        this.Syear = inputValidString(this.Syear, 4);
 
-    } //end getCourseInfo()
+        //enter the instructor
+        System.out.println("Who will be teaching this section?: ");
+        this.Sinstructor = inputValidString(this.Sinstructor, 20);
+
+    } //end getSectionInfo
 
     /**
-     *  inputs course values
+     *  inputs section values
      * 
      * @return
      */
-    public String inputCourse() {
+    public String inputSection() {
 
-        String q = "INSERT INTO COURSE VALUES('" + Cnumber + "', '" + CName + "', '" +
-        Cdesc + "', '" + Chours + "', '" + Clevel + "', '" + Depart_Code + "')";
+        String q = "INSERT INTO SECTION VALUES('" + Snumber + "', '" + Sinstructor + "', '" +
+        Semester + "', '" + Syear + "', '" + C_no + "')";
 
         return q;
     }
@@ -142,5 +121,7 @@ public class SQLCourseInputs {
         } //end try-catch
 
     } //end isNumeric()
-    
+
+
+
 }
