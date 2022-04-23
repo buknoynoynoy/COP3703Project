@@ -88,6 +88,24 @@ public class StudentDatabase {
 
                         //input department case
                         case 2:
+
+                            //count departments
+                            try {
+                                String countDeps = "SELECT COUNT(*) FROM DEPARTMENT";
+                                ResultSet depCount = stmt.executeQuery(countDeps);
+
+                                //iterate
+                                while(depCount.next()) {
+                                    int numDeps = depCount.getInt(1);
+                                    if (numDeps == 0) {
+                                        System.out.println("No departments.");
+                                    }
+                                }
+    
+                            } catch (Exception e){
+                                System.out.println("Failed.");
+                            } //end try catch
+
                             System.out.println("Entering Department...");
                             departmentInput.getDepartmentInfo();
                             departmentSQL = departmentInput.inputDepartment();
@@ -101,12 +119,42 @@ public class StudentDatabase {
                             }
 
                             break; //case 2
-
+                        
+                        //input course case
                         case 3:
+
+                            try {
+                                //printing departments
+                                String deps = "SELECT Dname, Dcode, College FROM DEPARTMENT";
+                                ResultSet printDeps = stmt.executeQuery(deps);
+
+                                //iterating through result
+                                while (printDeps.next()) {
+
+                                String Dname = printDeps.getString("Dname");
+                                String Dcode = printDeps.getString("Dcode");
+                                String College = printDeps.getString("College");
+                                System.out.println("#####################################\nDepartment Name: " + 
+                                                    Dname + "\nDepartment Code: " + Dcode + "\nDepartment College: " + 
+                                                    College + "\n#####################################\n");
+
+                                } //end while printDeps
+
+                            } catch (Exception e) {
+                                System.out.println("Failed.");
+                                break;
+                            } //end printing departments.
+
                             System.out.println("Entering Course...");
                             courseInput.getCourseInfo();
                             courseSQL = courseInput.inputCourse();
                             System.out.println(courseSQL);
+
+                            try {
+                                ResultSet courseInputs = stmt.executeQuery(courseSQL);
+                            } catch (Exception ex) {
+                                System.out.println("Input failed.");
+                            }
 
                             break;
 
@@ -134,5 +182,25 @@ public class StudentDatabase {
         }
 
         //Connection conn = DriverManager.getConnection(url, userID, password);
-    }
+    } //end main
+
+    public static String getString() {
+        try {
+            StringBuffer buffer = new StringBuffer();
+            int c = System.in.read();
+            while (c != '\n' && c != -1) {
+              buffer.append((char)c);
+              c = System.in.read();
+              }
+            return buffer.toString().trim();
+            }
+            catch (IOException e){return "";}
+        } //end getString()
+
+        public static int getInt() 
+
+        {
+            String s= getString();
+            return Integer.parseInt(s);
+        } //end getInt()
 }

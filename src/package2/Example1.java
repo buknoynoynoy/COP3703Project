@@ -23,7 +23,7 @@ class Example1
     //System.out.print("password: ");
     String pword = "Spring2022T1";
 
-    String url = "jdbc:oracle:thin:@cisvm-oracle.unfcsd.unf.edu:1521:orcl";
+    String url = "                                                                                   ";
 
     // Load the Oracle JDBC driver
 
