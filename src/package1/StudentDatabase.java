@@ -187,7 +187,7 @@ public class StudentDatabase {
                                 String Dname = printDeps.getString("Dname");
                                 String Dcode = printDeps.getString("Dcode");
                                 String College = printDeps.getString("College");
-                                System.out.println("#####################################\nDepartment Name: " + 
+                                System.out.println("\nDEPARTMENT\n#####################################\nDepartment Name: " + 
                                                     Dname + "\nDepartment Code: " + Dcode + "\nDepartment College: " + 
                                                     College + "\n#####################################\n");
 
@@ -310,7 +310,7 @@ public class StudentDatabase {
                                     isValid = true;
                                 } else {
                                     //print the courses
-                                    System.out.println("Printing courses...");
+                                    System.out.println("\nPrinting courses...");
                                     try {
                                         String courses = "SELECT Dname, CName, Cnumber, Cdesc FROM DEPARTMENT, COURSE WHERE (Dcode = Depart_Code AND Depart_Code='" + courseFromDep + "')";
                                         ResultSet printCourses = stmt.executeQuery(courses);
@@ -340,7 +340,7 @@ public class StudentDatabase {
 
                     } //end switch
 
-                    System.out.println("Would you like to continue? 1 yes, -1 no:");
+                    System.out.println("\nWould you like to continue? 1 yes, -1 no:");
                     proceed = scan.nextInt();
 
                     //checks if user would like to proceed.
