@@ -65,7 +65,7 @@ public class SQLEnrollStudent extends Object {
 
         //get grade
         System.out.print("Please enter the student's grade: ");
-        this.Grade = inputValidString(this.Grade, 1);
+        this.Grade = inputValidString(this.Grade, 2);
 
     } //end getStudentGrade()
     

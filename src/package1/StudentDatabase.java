@@ -74,7 +74,7 @@ public class StudentDatabase {
                     }
 
                     //starting the program (intro)
-                    System.out.println("What would you like to do?\n1 to input student.\n2 to input a department.\n3 to input a course.\n4 to input a section.\n5 to display all courses for a given department.\n6 to enroll a student into a course.\n7 to add a grade to a student.");
+                    System.out.println("What would you like to do?\n1 to input student.\n2 to input a department.\n3 to input a course.\n4 to input a section.\n5 to display all courses for a given department.\n6 to enroll a student into a course.\n7 to add a grade to a student.\n8 to generate a grade report.");
                     userChoice = scan.nextInt();
 
                     //to choose what the user wants to do (meat)
@@ -478,6 +478,7 @@ public class StudentDatabase {
 
 
                             break; //case 6
+
                         case 7:
 
                             //sees if there are students in the database
@@ -557,7 +558,100 @@ public class StudentDatabase {
                                 System.out.println("Input Failed.");
                             }
 
-                            break;
+                            break; //case 7
+
+                        case 8:
+                            double sumGrades = 0;
+                            int numClasses = 0;
+                            double gradePointAverage;
+                            //print students
+                            try {
+                                String students = "SELECT Fname, Lname, Ssn, Nnumber FROM STUDENT";
+                                ResultSet printStudents = stmt.executeQuery(students);
+
+                                //iterating through result
+                                while (printStudents.next()) {
+
+                                String Fname = printStudents.getString("Fname");
+                                String Lname = printStudents.getString("Lname");
+                                String Ssn = printStudents.getString("Ssn");
+                                String Nnumber = printStudents.getString("Nnumber");
+                                System.out.println("\nSTUDENT\n#####################################\nStudent Name: " + 
+                                                    Fname + " " + Lname + "\nStudent N-Number: " + Nnumber + "\nStudent SSN: " + 
+                                                    Ssn + "\n#####################################\n");
+
+                                } //end while printStudents
+
+                            } catch (Exception e) {
+                                System.out.println("Failed.");
+                            } //end try catch
+
+                            isValid = true;
+
+                            while (isValid) {
+                                System.out.print("\nChoose a student to generate a grade report (N--------): ");
+                                enrollStudent.N_no = scan.nextLine();
+                                isValid = (isNumeric(enrollStudent.N_no));
+                    
+                                if (isValid) {
+                                    System.out.println("Invalid Input. Please try again.");
+                                } else if (enrollStudent.N_no.length() > 9 || enrollStudent.N_no.length() < 9) {
+                                    System.out.println("Invalid Input. Please try again.");
+                                    isValid = true;
+                                } else {
+                                    if (Character.toString(enrollStudent.N_no.charAt(0)).equals("n")) {
+                                        enrollStudent.N_no = enrollStudent.N_no.replace("n", "N");
+                                    }
+                                }
+                            }
+                            isValid = true;
+
+                            //display sections student is in
+                            String grades = "SELECT CName, Snumber, Sinstructor, Grade FROM COURSE, SECTION, ENROLLED_IN WHERE (COURSE.Cnumber=ENROLLED_IN.C_no AND SECTION.Snumber=ENROLLED_IN.S_no AND ENROLLED_IN.N_no = '" + enrollStudent.N_no + "')";
+                            ResultSet showGrades = stmt.executeQuery(grades);
+                            while (showGrades.next()) {
+                                String Cname = showGrades.getString("Cname");
+                                String Snumber = showGrades.getString("Snumber");
+                                String Sinstructor = showGrades.getString("Sinstructor");
+                                String Grade = showGrades.getString("Grade");
+
+                                double gradePoint = 0;
+                                if (Grade.equals("A") || Grade.equals("a")) {
+                                    gradePoint = 4;
+                                    sumGrades += gradePoint;
+                                } else if (Grade.equals("B") || Grade.equals("b")) {
+                                    gradePoint = 3;
+                                    sumGrades += gradePoint;
+                                } else if (Grade.equals("C") || Grade.equals("c")) {
+                                    gradePoint = 2;
+                                    sumGrades += gradePoint;
+                                } else if (Grade.equals("D") || Grade.equals("d")) {
+                                    gradePoint = 1;
+                                    sumGrades += gradePoint;
+                                } else if (Grade.equals("A-") || Grade.equals("a-")) {
+                                    gradePoint = 3.7;
+                                    sumGrades += gradePoint;
+                                } else if (Grade.equals("B+") || Grade.equals("b+")) {
+                                    gradePoint = 3.3;
+                                    sumGrades += gradePoint;
+                                } else if (Grade.equals("B-") || Grade.equals("b-")) {
+                                    gradePoint = 2.7;
+                                    sumGrades += gradePoint;
+                                } else if (Grade.equals("C+") || Grade.equals("c+")) {
+                                    gradePoint = 2.3;
+                                    sumGrades += gradePoint;
+                                }
+
+                                System.out.println("\nSECTION\n#####################################\nCourse Name: " + 
+                                                    Cname + "\nSection Number: " + Snumber + "\nInstructor: " + 
+                                                    Sinstructor + "\nGrade: " + Grade + " Points: " + gradePoint + "\n#####################################\n");
+                                numClasses++;
+                            }
+                            gradePointAverage = sumGrades / numClasses;
+
+                            System.out.println("GPA: " + gradePointAverage);
+
+                            break; //case 8
                             
 
                     } //end switch
