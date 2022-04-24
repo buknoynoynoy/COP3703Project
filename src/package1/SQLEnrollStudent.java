@@ -1,51 +1,48 @@
 package package1;
-
 import java.util.*;
 
-import javax.print.attribute.SupportedValuesAttribute;
-
-public class SQLCourseInputs {
-
+public class SQLEnrollStudent extends Object {
     Scanner scan = new Scanner(System.in);
-
-    private String Cnumber, CName, Cdesc, Chours, Clevel, Depart_Code;
 
     private boolean isValid = true;
 
-    public void getCourseInfo() {
+    protected String N_no, S_no, C_no, Grade;
 
-        //enter department for course
+    public void getStudentNumber() {
+
+        //Enter Student's Nnumber
         while (isValid) {
-            System.out.print("What department will this course be in (department code XXXX): ");
-            this.Depart_Code = scan.nextLine();
-            isValid = (isNumeric(this.Depart_Code));
+            System.out.print("Enter the N-number of the student you would like to enroll into a class: ");
+            this.N_no = scan.nextLine();
+            isValid = (isNumeric(this.N_no));
 
-            if (!isValid) {
-                System.out.println("Invalid Input. Numbers only. Please try again.");
-                isValid = true;
-            } else if (this.Depart_Code.length() > 4 || this.Depart_Code.length() < 4) {
-                System.out.println("Invalid Input. Minimum 4 numbers. Please try again.");
+            if (isValid) {
+                System.out.println("Invalid Input. Please try again.");
+            } else if (this.N_no.length() > 9 || this.N_no.length() < 9) {
+                System.out.println("Invalid Input. Please try again.");
                 isValid = true;
             } else {
-                break;
+                if (Character.toString(this.N_no.charAt(0)).equals("n")) {
+                    this.N_no = this.N_no.replace("n", "N");
+                }
             }
         }
         isValid = true;
 
-        //Enter course name
-        System.out.print("Please enter the course name: ");
-        this.CName = inputValidString(this.CName, 20);
+    } //end getStudentNumber()
+
+    public void getCourseNumber() {
 
         //Enter course number
         while (isValid) {
             System.out.print("Please enter the course number (XXXXXXX): ");
-            this.Cnumber = scan.nextLine();
-            isValid = (isNumeric(this.Cnumber));
+            this.C_no = scan.nextLine();
+            isValid = (isNumeric(this.C_no));
 
             if (!isValid) {
                 System.out.println("Invalid Input. Numbers only. Please try again.");
                 isValid = true;
-            } else if (this.Cnumber.length() > 7 || this.Cnumber.length() < 7) {
+            } else if (this.C_no.length() > 7 || this.C_no.length() < 7) {
                 System.out.println("Invalid Input. Minimum and maximum of 7 numbers. Please try again.");
                 isValid = true;
             } else {
@@ -54,32 +51,38 @@ public class SQLCourseInputs {
         }
         isValid = true;
 
-        //enter course description
-        System.out.print("Please enter the course description: ");
-        this.Cdesc = inputValidString(this.Cdesc, 100);
+    } //end getCourseNumber
 
-        //enter course hours
-        System.out.print("Please enter the number of hours for this course: ");
-        this.Chours = inputValidNum(this.Chours, 1);
+    public void getSectionNumber() {
 
-        //enter course level
-        System.out.print("Please enter the course level: ");
-        this.Clevel = inputValidString(this.Clevel, 10);
+        //input Snumber
+        System.out.print("Please enter the section number for the section you would liek to enroll the student into: ");
+        this.S_no = inputValidNum(this.S_no, 2);
 
-    } //end getCourseInfo()
+    } //end getSectionNumber()
 
-    /**
-     *  inputs course values
-     * 
-     * @return
-     */
-    public String inputCourse() {
+    public void getStudentGrade() {
 
-        String q = "INSERT INTO COURSE VALUES('" + Cnumber + "', '" + CName + "', '" +
-        Cdesc + "', '" + Chours + "', '" + Clevel + "', '" + Depart_Code + "')";
+        //get grade
+        System.out.print("Please enter the student's grade: ");
+        this.Grade = inputValidString(this.Grade, 1);
+
+    } //end getStudentGrade()
+    
+
+    public String enrollStudent() {
+        String q = "INSERT INTO ENROLLED_IN VALUES('" + N_no + "', '" + S_no + "', '" +
+        C_no + "', '"  + Grade + "')";
 
         return q;
-    }
+    } //end enrollStudent()
+
+    public String addGrade() {
+
+        String q = "UPDATE ENROLLED_IN SET Grade = '" + Grade + "'  WHERE (N_no = '" + N_no + "' AND S_no = '" + S_no  + "')";
+
+        return q;
+    } //end addGrade()
 
     /**
      *  check if string is valid
@@ -142,5 +145,4 @@ public class SQLCourseInputs {
         } //end try-catch
 
     } //end isNumeric()
-    
 }
