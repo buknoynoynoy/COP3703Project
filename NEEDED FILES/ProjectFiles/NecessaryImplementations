@@ -5,8 +5,7 @@
 
 
 
-Create input statement function for enrolling
-student into a course.
+**Create input statement function for enrolling student into a course.
 
 Create function for converting grade to grade point and gpa.
 i.e 
@@ -16,4 +15,4 @@ if the queried grade is A, grade point is 4.0, B is 3.0 C is
 Create queries for grade report.
 **Create queries for courses offered.
 
-add a grade to a given student for a given course.
+**add a grade to a given student for a given course.
