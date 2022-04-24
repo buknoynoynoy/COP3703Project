@@ -424,26 +424,45 @@ public class StudentDatabase {
                                 String Cname = courseChosen.getString("Cname");
                                 String Cnumber = courseChosen.getString("Cnumber");
 
-                                System.out.println("\nEnrolling into: " + Cname + " C-Number: " + Cnumber);
+                                System.out.println("\nEnrolling into: " + Cname + "\nC-Number: " + Cnumber + "\n");
                             } //end while
 
                             //print sections for this course
                             System.out.println("Printing sections...");
                             try {
-                                String sections = "SELECT Snumber, Sinstructor FROM SECTION, COURSE WHERE (Cnumber = C_no AND C_no = '" + enrollStudent.C_no + "')";
-                                ResultSet printSections = stmt.executeQuery(sections);
+                                String countSections = "SELECT COUNT(*) FROM SECTION, COURSE WHERE (Cnumber = C_no AND C_no = '" + enrollStudent.C_no + "')";
+                                ResultSet countedSections = stmt.executeQuery(countSections);
 
-                                //print sections
-                                while (printSections.next()) {
-                                    String Snumber = printSections.getString("Snumber");
-                                    String Sinstructor = printSections.getString("Sinstructor");
-                                    System.out.println("\nSECTION\n#####################################\nSection number: " + 
-                                    Snumber + "\nSection Instructor: " + Sinstructor + "\n#####################################\n");
-                                } //end while printSections
+                                //count
+                                while (countedSections.next()) {
+                                    int numSections = countedSections.getInt(1);
+
+                                    if (numSections == 0) {
+                                        System.out.println("No Sections.");
+                                        break;
+                                    } else {
+                                        try {
+                                            String sections = "SELECT Snumber, Sinstructor FROM SECTION, COURSE WHERE (Cnumber = C_no AND C_no = '" + enrollStudent.C_no + "')";
+                                            ResultSet printSections = stmt.executeQuery(sections);
+            
+                                            //print sections
+                                            while (printSections.next()) {
+                                                String Snumber = printSections.getString("Snumber");
+                                                String Sinstructor = printSections.getString("Sinstructor");
+                                                System.out.println("\nSECTION\n#####################################\nSection number: " + 
+                                                Snumber + "\nSection Instructor: " + Sinstructor + "\n#####################################\n");
+                                            } //end while printSections
+            
+                                        } catch (Exception e) {
+                                            System.out.println("Query failed.");
+                                        } //end printSections
+                                    }
+                                    
+                                } //end count sections
 
                             } catch (Exception e) {
-                                System.out.println("Failed.");
-                            } //end printSections
+                                System.out.println();
+                            } //end printSections and count
 
                             //GET SECTION INFO
                             enrollStudent.getSectionNumber();
@@ -510,16 +529,17 @@ public class StudentDatabase {
                             }
 
                             //display sections student is in
-                            String enrollments = "SELECT CName, Snumber, Sinstructor FROM COURSE, SECTION, ENROLLED_IN WHERE (COURSE.Cnumber=ENROLLED_IN.C_no AND SECTION.Snumber=ENROLLED_IN.S_no AND ENROLLED_IN.N_no = '" + enrollStudent.N_no + "')";
+                            String enrollments = "SELECT CName, Snumber, Sinstructor, Grade FROM COURSE, SECTION, ENROLLED_IN WHERE (COURSE.Cnumber=ENROLLED_IN.C_no AND SECTION.Snumber=ENROLLED_IN.S_no AND ENROLLED_IN.N_no = '" + enrollStudent.N_no + "')";
                             ResultSet sectionEnrollments = stmt.executeQuery(enrollments);
                             while (sectionEnrollments.next()) {
                                 String Cname = sectionEnrollments.getString("Cname");
                                 String Snumber = sectionEnrollments.getString("Snumber");
                                 String Sinstructor = sectionEnrollments.getString("Sinstructor");
+                                String Grade = sectionEnrollments.getString("Grade");
 
                                 System.out.println("\nSECTION\n#####################################\nCourse Name: " + 
                                                     Cname + "\nSection Number: " + Snumber + "\nInstructor: " + 
-                                                    Sinstructor + "\n#####################################\n");
+                                                    Sinstructor + "\nGrade: " + Grade + "\n#####################################\n");
                             }
 
                             //prompts for section number 
